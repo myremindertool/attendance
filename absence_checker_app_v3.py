@@ -49,8 +49,9 @@ def main():
     leave_file = st.file_uploader("📂 Upload Leave Application Sheet", type=["xlsx"])
 
     if att_file and leave_file:
-        att_df = pd.read_excel(att_file)
-        leave_df = pd.read_excel(leave_file)
+        # Use engine='openpyxl' to prevent ImportError
+        att_df = pd.read_excel(att_file, engine='openpyxl')
+        leave_df = pd.read_excel(leave_file, engine='openpyxl')
 
         result_df = check_unapproved_absences(att_df, leave_df)
 
